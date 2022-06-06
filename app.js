@@ -13,14 +13,16 @@ if (!argv['chat-id']) {
     process.exit(1)
 }
 
-for await (const eq of ceicLookup()) {
+const sent_earthquakes = [];
+
+for (const eq of await ceicLookup()) {
     sent_earthquakes.push(eq.CATA_ID);
 }
 
 console.log('Pool:', sent_earthquakes)
 
 setInterval(async () => {
-    for await (const eq of ceicLookup()) {
+    for (const eq of await ceicLookup()) {
         if (sent_earthquakes.includes(eq.CATA_ID)) {
             continue;
         }
