@@ -1,0 +1,8 @@
+{
+  "name": "@wmlabs/earthquake-report-bot",
+  "type": "module",
+  "dependencies": {
+    "make-fetch-happen": "^10.1.7",
+    "yargs": "^17.5.1"
+  }
+}
