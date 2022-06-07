@@ -22,13 +22,17 @@ for (const eq of await ceicLookup()) {
 console.log('Pool:', sent_earthquakes)
 
 setInterval(async () => {
-    for (const eq of await ceicLookup()) {
-        if (sent_earthquakes.includes(eq.CATA_ID)) {
-            continue;
+    try {
+        for (const eq of await ceicLookup()) {
+            if (sent_earthquakes.includes(eq.CATA_ID)) {
+                continue;
+            }
+            sent_earthquakes.push(eq.CATA_ID);
+            console.log('New EQ:', eq.CATA_ID)
+            await sendNotification(eq);
         }
-        sent_earthquakes.push(eq.CATA_ID);
-        console.log('New EQ:', eq.CATA_ID)
-        await sendNotification(eq);
+    } catch (e) {
+        console.error(e);
     }
 }, 300 * 1000);
 
